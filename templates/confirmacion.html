@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Confirmación de un equipo registrado en el inventario TIC.">
+    <title>Inventario TIC · Equipo guardado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('inicio') }}" aria-label="Inventario TIC, inicio">
+                <span class="brand-mark" aria-hidden="true">IT</span>
+                <span class="brand-name">Inventario <strong>TIC</strong></span>
+            </a>
+            <span class="header-note">Proyecto de aula · IAW</span>
+        </header>
+
+        <main class="confirmation-wrap">
+            <section class="confirmation-card" aria-labelledby="titulo-confirmacion">
+                <div class="success-mark" aria-hidden="true">✓</div>
+                <span class="section-kicker">REGISTRO COMPLETADO</span>
+                <h1 id="titulo-confirmacion">Equipo guardado<br><em>correctamente.</em></h1>
+                <p class="confirmation-lead">La ficha ya forma parte del inventario. Estos son los datos que acabas de registrar:</p>
+
+                <div class="summary-header">
+                    <span>FICHA DEL EQUIPO</span>
+                    <strong>N.º {{ equipo.id }}</strong>
+                </div>
+                <dl class="summary-grid">
+                    <div><dt>Tipo</dt><dd>{{ equipo.tipo }}</dd></div>
+                    <div><dt>Ubicación</dt><dd>{{ equipo.aula }}</dd></div>
+                    <div><dt>Marca</dt><dd>{{ equipo.marca }}</dd></div>
+                    <div><dt>Modelo</dt><dd>{{ equipo.modelo }}</dd></div>
+                    <div class="summary-full"><dt>Estado</dt><dd><span class="status-label">{{ equipo.estado }}</span></dd></div>
+                </dl>
+
+                <a class="button-link" href="{{ url_for('inicio') }}">Registrar otro equipo <span aria-hidden="true">→</span></a>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <span>Inventario TIC</span>
+            <span>Implantación de Aplicaciones Web · 2.º ASIR</span>
+        </footer>
+    </div>
+</body>
+</html>

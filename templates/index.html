@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Registro de equipos para el inventario TIC del centro.">
+    <title>Inventario TIC · Registrar equipo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('inicio') }}" aria-label="Inventario TIC, inicio">
+                <span class="brand-mark" aria-hidden="true">IT</span>
+                <span class="brand-name">Inventario <strong>TIC</strong></span>
+            </a>
+            <span class="header-note">Proyecto de aula · IAW</span>
+        </header>
+
+        <main>
+            <section class="hero" aria-labelledby="titulo">
+                <div class="hero-content">
+                    <span class="eyebrow"><span class="eyebrow-dot"></span> EQUIPAMIENTO DEL CENTRO</span>
+                    <h1 id="titulo">Cada equipo,<br><em>en su lugar.</em></h1>
+                    <p>Registra el material informático y conserva sus datos organizados en un mismo sitio.</p>
+                </div>
+                <div class="hero-aside" aria-hidden="true">
+                    <div class="device-card device-card-back"></div>
+                    <div class="device-card device-card-front">
+                        <span class="device-indicator"></span>
+                        <span class="device-line device-line-wide"></span>
+                        <span class="device-line"></span>
+                        <span class="device-pill"></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="workspace" aria-labelledby="titulo-formulario">
+                <div class="workspace-intro">
+                    <span class="section-kicker">01 / REGISTRO</span>
+                    <h2 id="titulo-formulario">Nuevo equipo</h2>
+                    <p>Rellena la ficha con los datos del dispositivo. Al guardarla, verás un resumen del registro.</p>
+                    <div class="tip-card">
+                        <span class="tip-icon" aria-hidden="true">i</span>
+                        <p>Usa el nombre habitual del aula para que sea fácil localizar el equipo.</p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div>
+                            <span class="form-overline">FICHA DE INVENTARIO</span>
+                            <h3>Datos del equipo</h3>
+                        </div>
+                        <span class="form-badge">Alta</span>
+                    </div>
+
+                    {% if error %}
+                    <div class="alert" role="alert">{{ error }}</div>
+                    {% endif %}
+
+                    <form action="{{ url_for('registrar_equipo') }}" method="post">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="tipo">Tipo de equipo</label>
+                                <select id="tipo" name="tipo" required>
+                                    <option value="" disabled {% if not valores.get('tipo') %}selected{% endif %}>Selecciona un tipo</option>
+                                    {% for tipo in tipos %}
+                                    <option value="{{ tipo }}" {% if valores.get('tipo') == tipo %}selected{% endif %}>{{ tipo }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="aula">Aula o ubicación</label>
+                                <input id="aula" name="aula" type="text" maxlength="30" required
+                                       placeholder="Ej. Taller 2" value="{{ valores.get('aula', '') }}">
+                            </div>
+                            <div class="field">
+                                <label for="marca">Marca</label>
+                                <input id="marca" name="marca" type="text" maxlength="60" required
+                                       placeholder="Ej. Dell" value="{{ valores.get('marca', '') }}">
+                            </div>
+                            <div class="field">
+                                <label for="modelo">Modelo</label>
+                                <input id="modelo" name="modelo" type="text" maxlength="80" required
+                                       placeholder="Ej. OptiPlex 7010" value="{{ valores.get('modelo', '') }}">
+                            </div>
+                            <div class="field field-full">
+                                <label for="estado">Estado</label>
+                                <select id="estado" name="estado" required>
+                                    <option value="" disabled {% if not valores.get('estado') %}selected{% endif %}>Selecciona el estado actual</option>
+                                    {% for estado in estados %}
+                                    <option value="{{ estado }}" {% if valores.get('estado') == estado %}selected{% endif %}>{{ estado }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <p>Todos los campos son obligatorios.</p>
+                            <button type="submit">Guardar equipo <span aria-hidden="true">→</span></button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <span>Inventario TIC</span>
+            <span>Implantación de Aplicaciones Web · 2.º ASIR</span>
+        </footer>
+    </div>
+</body>
+</html>
