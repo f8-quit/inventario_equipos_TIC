@@ -160,18 +160,10 @@ Al repetir la instalación desde cero, estos registros no aparecerán hasta intr
 
 ### 7. Conectar Apache con Flask, si se va a usar Apache para acceder
 
-**Esta configuración no figura en el ZIP del repositorio y no consta como probada en la máquina de prácticas.** Apache puede recibir las peticiones y enviarlas a Flask, que debe seguir ejecutándose en `127.0.0.1:5000`.
-
-Activar los módulos necesarios:
+Crear `/etc/apache2/sites-available/inventario_equipos_TIC.conf`:
 
 ```bash
-sudo a2enmod proxy proxy_http
-```
-
-Crear `/etc/apache2/sites-available/inventario_tic.conf`:
-
-```bash
-sudo nano /etc/apache2/sites-available/inventario_tic.conf
+sudo nano /etc/apache2/sites-available/inventario_equipos_TIC.conf
 ```
 
 Contenido del archivo:
@@ -189,7 +181,7 @@ Contenido del archivo:
 Activar el sitio y comprobar la configuración:
 
 ```bash
-sudo a2ensite inventario_tic.conf
+sudo a2ensite inventario_equipos_TIC.conf
 sudo apache2ctl configtest
 sudo systemctl reload apache2
 ```
@@ -200,21 +192,7 @@ sudo systemctl reload apache2
 127.0.0.1 inventario.test
 ```
 
-Se puede editar con `sudo nano /etc/hosts`. Con `python app.py` aún en marcha, abrir **http://inventario.test/**. Esa dirección local corresponde al propio Ubuntu; si Flask se detiene, Apache no podrá mostrar la aplicación.
-
-## Git y GitHub
-
-El proyecto ya tiene un repositorio local y se ha publicado en GitHub. Al trabajar desde un clon, comprobar el remoto y guardar las modificaciones del README así:
-
-```bash
-cd /var/www/inventario_equipos_TIC
-git remote -v
-git add README.md
-git commit -m "Documentar el proyecto de inventario TIC"
-git push
-```
-
-En el primer envío desde una rama `main` local todavía sin seguimiento remoto, usar `git push -u origin main`. El archivo `.gitignore` evita incluir `venv/`, archivos `__pycache__/`, `*.pyc` y `.env`.
+Se puede editar con `sudo nano /etc/hosts`.
 
 ## Errores que aparecieron durante la práctica
 
